@@ -1,0 +1,352 @@
+{
+  "coverage": [
+    {
+      "fy": 2014,
+      "filings": 3765,
+      "eins": 3765,
+      "long_form": 877
+    },
+    {
+      "fy": 2015,
+      "filings": 7761,
+      "eins": 7761,
+      "long_form": 2113
+    },
+    {
+      "fy": 2016,
+      "filings": 30213,
+      "eins": 30213,
+      "long_form": 12778
+    },
+    {
+      "fy": 2017,
+      "filings": 443472,
+      "eins": 443472,
+      "long_form": 262867
+    },
+    {
+      "fy": 2018,
+      "filings": 527059,
+      "eins": 527059,
+      "long_form": 310794
+    },
+    {
+      "fy": 2019,
+      "filings": 527147,
+      "eins": 527147,
+      "long_form": 314670
+    },
+    {
+      "fy": 2020,
+      "filings": 522040,
+      "eins": 522040,
+      "long_form": 311831
+    },
+    {
+      "fy": 2021,
+      "filings": 515860,
+      "eins": 515860,
+      "long_form": 320395
+    },
+    {
+      "fy": 2022,
+      "filings": 524341,
+      "eins": 524341,
+      "long_form": 331510
+    },
+    {
+      "fy": 2023,
+      "filings": 515132,
+      "eins": 515132,
+      "long_form": 329129
+    },
+    {
+      "fy": 2024,
+      "filings": 74670,
+      "eins": 74670,
+      "long_form": 41164
+    }
+  ],
+  "runway_distribution": [
+    {
+      "n": 1573687,
+      "p50": 5.52,
+      "p10": 0.55,
+      "p25": 2.01,
+      "p75": 13.15,
+      "p90": 31.7,
+      "pct_under_1_month": 15.06,
+      "pct_under_3_months": 33.46,
+      "pct_under_6_months": 52.48
+    }
+  ],
+  "cohort_overall": [
+    {
+      "orgs": 328186,
+      "still_filing_2022_or_later": 299034,
+      "pct_survived": 91.12,
+      "pct_gone": 8.88
+    }
+  ],
+  "survival_by_runway": [
+    {
+      "runway_band": "a under 1 month",
+      "orgs": 62687,
+      "pct_survived": 86.23,
+      "pct_gone": 13.77
+    },
+    {
+      "runway_band": "b 1 to 3 months",
+      "orgs": 67992,
+      "pct_survived": 91.86,
+      "pct_gone": 8.14
+    },
+    {
+      "runway_band": "c 3 to 6 months",
+      "orgs": 61227,
+      "pct_survived": 93.12,
+      "pct_gone": 6.88
+    },
+    {
+      "runway_band": "d 6 to 12 months",
+      "orgs": 59818,
+      "pct_survived": 93.77,
+      "pct_gone": 6.23
+    },
+    {
+      "runway_band": "e 1 to 2 years",
+      "orgs": 38943,
+      "pct_survived": 92.9,
+      "pct_gone": 7.1
+    },
+    {
+      "runway_band": "f over 2 years",
+      "orgs": 37519,
+      "pct_survived": 88.59,
+      "pct_gone": 11.41
+    }
+  ],
+  "survival_by_fundraising_cost": [
+    {
+      "fundraising_band": "a under 5 cents",
+      "orgs": 216150,
+      "pct_survived": 91.28
+    },
+    {
+      "fundraising_band": "b 5 to 10 cents",
+      "orgs": 14192,
+      "pct_survived": 95.49
+    },
+    {
+      "fundraising_band": "c 10 to 20 cents",
+      "orgs": 13472,
+      "pct_survived": 94.69
+    },
+    {
+      "fundraising_band": "d 20 to 35 cents",
+      "orgs": 9160,
+      "pct_survived": 93.08
+    },
+    {
+      "fundraising_band": "e over 35 cents",
+      "orgs": 11942,
+      "pct_survived": 91.43
+    },
+    {
+      "fundraising_band": "z not reported",
+      "orgs": 63270,
+      "pct_survived": 88.48
+    }
+  ],
+  "survival_by_size": [
+    {
+      "size_band": "a under 100k",
+      "orgs": 53773,
+      "median_runway": 14.81,
+      "pct_survived": 81.3
+    },
+    {
+      "size_band": "b 100k to 500k",
+      "orgs": 132880,
+      "median_runway": 5.36,
+      "pct_survived": 91.38
+    },
+    {
+      "size_band": "c 500k to 2m",
+      "orgs": 76991,
+      "median_runway": 3.52,
+      "pct_survived": 93.66
+    },
+    {
+      "size_band": "d 2m to 10m",
+      "orgs": 41827,
+      "median_runway": 2.52,
+      "pct_survived": 95.45
+    },
+    {
+      "size_band": "e over 10m",
+      "orgs": 22715,
+      "median_runway": 1.49,
+      "pct_survived": 96.23
+    }
+  ],
+  "survival_small_by_runway": [
+    {
+      "runway_band": "a under 1 month",
+      "orgs": 27274,
+      "pct_survived": 80.0
+    },
+    {
+      "runway_band": "b 1 to 3 months",
+      "orgs": 29196,
+      "pct_survived": 87.5
+    },
+    {
+      "runway_band": "c 3 to 6 months",
+      "orgs": 31163,
+      "pct_survived": 90.34
+    },
+    {
+      "runway_band": "d 6 to 12 months",
+      "orgs": 37186,
+      "pct_survived": 92.0
+    },
+    {
+      "runway_band": "e over 12 months",
+      "orgs": 61834,
+      "pct_survived": 89.62
+    }
+  ],
+  "two_signals": [
+    {
+      "size_band": "larger",
+      "runway": "runway 3 months or more",
+      "efficiency": "efficient fundraiser",
+      "orgs": 47385,
+      "pct_survived": 96.7
+    },
+    {
+      "size_band": "larger",
+      "runway": "runway 3 months or more",
+      "efficiency": "expensive fundraiser",
+      "orgs": 5537,
+      "pct_survived": 97.24
+    },
+    {
+      "size_band": "larger",
+      "runway": "runway 3 months or more",
+      "efficiency": "no fundraising cost reported",
+      "orgs": 14402,
+      "pct_survived": 94.01
+    },
+    {
+      "size_band": "larger",
+      "runway": "thin runway",
+      "efficiency": "efficient fundraiser",
+      "orgs": 54982,
+      "pct_survived": 93.73
+    },
+    {
+      "size_band": "larger",
+      "runway": "thin runway",
+      "efficiency": "expensive fundraiser",
+      "orgs": 4421,
+      "pct_survived": 94.5
+    },
+    {
+      "size_band": "larger",
+      "runway": "thin runway",
+      "efficiency": "no fundraising cost reported",
+      "orgs": 14806,
+      "pct_survived": 90.72
+    },
+    {
+      "size_band": "small under 500k",
+      "runway": "runway 3 months or more",
+      "efficiency": "efficient fundraiser",
+      "orgs": 87647,
+      "pct_survived": 90.71
+    },
+    {
+      "size_band": "small under 500k",
+      "runway": "runway 3 months or more",
+      "efficiency": "expensive fundraiser",
+      "orgs": 19919,
+      "pct_survived": 93.04
+    },
+    {
+      "size_band": "small under 500k",
+      "runway": "runway 3 months or more",
+      "efficiency": "no fundraising cost reported",
+      "orgs": 22617,
+      "pct_survived": 87.29
+    },
+    {
+      "size_band": "small under 500k",
+      "runway": "thin runway",
+      "efficiency": "efficient fundraiser",
+      "orgs": 40328,
+      "pct_survived": 84.29
+    },
+    {
+      "size_band": "small under 500k",
+      "runway": "thin runway",
+      "efficiency": "expensive fundraiser",
+      "orgs": 4697,
+      "pct_survived": 87.44
+    },
+    {
+      "size_band": "small under 500k",
+      "runway": "thin runway",
+      "efficiency": "no fundraising cost reported",
+      "orgs": 11445,
+      "pct_survived": 80.98
+    }
+  ],
+  "correlations": [
+    {
+      "corr_runway": -0.0175,
+      "corr_log_expenses": 0.1591,
+      "corr_fundraising_cost": 0.015,
+      "corr_officer_comp_share": 0.0029,
+      "corr_margin": 0.0008
+    }
+  ],
+  "gift_leverage": [
+    {
+      "size_band": "a under 50k",
+      "orgs": 28372,
+      "median_annual_spend": 23361.0,
+      "median_monthly_spend": 1947.0,
+      "days_of_runway_per_600_dollars": 9.4
+    },
+    {
+      "size_band": "b 50k to 100k",
+      "orgs": 25401,
+      "median_annual_spend": 73957.0,
+      "median_monthly_spend": 6163.0,
+      "days_of_runway_per_600_dollars": 3.0
+    },
+    {
+      "size_band": "c 100k to 500k",
+      "orgs": 132880,
+      "median_annual_spend": 239067.0,
+      "median_monthly_spend": 19922.0,
+      "days_of_runway_per_600_dollars": 0.9
+    },
+    {
+      "size_band": "d 500k to 2m",
+      "orgs": 76991,
+      "median_annual_spend": 889325.0,
+      "median_monthly_spend": 74110.0,
+      "days_of_runway_per_600_dollars": 0.2
+    },
+    {
+      "size_band": "e over 2m",
+      "orgs": 64542,
+      "median_annual_spend": 6050557.0,
+      "median_monthly_spend": 504213.0,
+      "days_of_runway_per_600_dollars": 0.0
+    }
+  ]
+}

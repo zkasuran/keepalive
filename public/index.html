@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Keepalive: the charity number nobody shows you</title>
+<meta name="description" content="Months of runway for 579,000 US nonprofits, read straight from their own IRS filings. Find where your gift buys the most time.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <a class="brand" href="/" aria-label="Keepalive home">
+    <span class="pulse" aria-hidden="true"></span>
+    <span class="brandname">keepalive</span>
+  </a>
+  <nav>
+    <a href="#find">Find</a>
+    <a href="#finding">The finding</a>
+    <a href="#how">How it works</a>
+    <a class="ghost" href="https://github.com/zkasuran/keepalive" rel="noopener">Source</a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="hero">
+    <p class="kicker">International Day of Charity, 5 September</p>
+    <h1>A charity does not close because its<br><em>overhead</em> was too high.<br>It closes because it<br><em>ran out of months</em>.</h1>
+    <p class="lede">
+      Keepalive reads the IRS filings of <strong data-stat="orgs">579,000</strong> US nonprofits and
+      computes the one number no rating site puts in front of you: how many months of
+      spending they have in the bank. Then it tells you, honestly, what your gift does to
+      that number.
+    </p>
+    <div class="herostats" id="herostats" aria-live="polite">
+      <div class="stat"><b data-stat="filings">3.7M</b><span>filings read</span></div>
+      <div class="stat"><b data-stat="p50">5.5</b><span>median months of runway</span></div>
+      <div class="stat"><b data-stat="under3">33%</b><span>have under 3 months</span></div>
+      <div class="stat"><b data-stat="years">2017–2024</b><span>fiscal years</span></div>
+    </div>
+  </section>
+
+  <section id="find" class="panel">
+    <h2>Where does my gift buy the most time?</h2>
+    <p class="sub">
+      The same money is worth wildly different amounts depending on who receives it.
+      Answer three things and Keepalive ranks real organisations by how much runway your
+      gift actually adds.
+    </p>
+    <form id="giftform" class="giftform" autocomplete="off">
+      <div class="field">
+        <label for="amount">I can give</label>
+        <div class="money">
+          <span aria-hidden="true">$</span>
+          <input id="amount" name="amount" type="number" min="1" step="1" value="25" inputmode="numeric" required>
+        </div>
+        <select id="cadence" name="cadence" aria-label="How often">
+          <option value="12" selected>per month</option>
+          <option value="1">once</option>
+          <option value="52">per week</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="cause">to work on</label>
+        <select id="cause" name="cause"><option value="">anything</option></select>
+      </div>
+      <div class="field">
+        <label for="state">near</label>
+        <select id="state" name="state"><option value="">anywhere in the US</option></select>
+      </div>
+      <button class="primary" type="submit">Show me</button>
+    </form>
+    <div id="giftresults" class="results" aria-live="polite"></div>
+  </section>
+
+  <section id="lookup" class="panel">
+    <h2>Or look up an organisation you already know</h2>
+    <div class="searchwrap">
+      <input id="q" type="search" placeholder="Search 579,000 nonprofits by name or paste an EIN" aria-label="Search nonprofits" autocomplete="off" spellcheck="false">
+      <div id="suggest" class="suggest" role="listbox" hidden></div>
+    </div>
+    <p class="hint">Try <button class="linky" data-q="doctors without borders">Doctors Without Borders</button>,
+      <button class="linky" data-q="chicago food depository">a food bank</button>,
+      <button class="linky" data-q="little free library">Little Free Library</button>.</p>
+  </section>
+
+  <section id="orgview" class="panel org" hidden></section>
+
+  <section id="finding" class="panel finding">
+    <h2>The finding</h2>
+    <p class="sub">
+      Two candidate signals, measured on the same 328,186 organisations that filed a
+      long-form return in fiscal 2018 or 2019, scored on whether they were still filing
+      by fiscal 2022. Both tables hold within every one of ten spending deciles, so
+      neither result is a story about big charities.
+    </p>
+    <div id="findingtables" class="tables"></div>
+  </section>
+
+  <section id="how" class="panel how">
+    <h2>How it works</h2>
+    <div id="howbody" class="howbody"></div>
+  </section>
+
+</main>
+
+<footer>
+  <p>
+    Built for the DEV Weekend Challenge: Generosity Edition, 4 to 7 September 2026.
+    Data: IRS Statistics of Income annual extracts of Form 990 and Form 990-EZ financial
+    data plus the Exempt Organizations Business Master File. Both are works of the US
+    federal government and in the public domain.
+  </p>
+  <p class="fine">
+    Keepalive is not a charity rating and not financial advice. Every number on this site
+    comes from an organisation's own filing, is labelled with the fiscal year it came from
+    and can be checked against the source.
+  </p>
+</footer>
+
+<script src="/app.js" type="module"></script>
+</body>
+</html>

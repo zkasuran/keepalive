@@ -1,0 +1,14 @@
+{
+  "name": "keepalive",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Months of runway for every US nonprofit that files, read off their own IRS returns",
+  "type": "module",
+  "scripts": {
+    "data": "python3 data/fetch.sh && python3 data/build.py && python3 data/analyse.py && python3 data/export.py",
+    "dev": "npx wrangler@latest pages dev public --port 8788",
+    "test": "node test/attest.wire.test.mjs && node test/facts.test.mjs",
+    "deploy": "npx wrangler@latest pages deploy public --project-name keepalive --branch main --commit-dirty=true"
+  },
+  "devDependencies": { "@solana/web3.js": "1.98.4" }
+}

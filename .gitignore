@@ -1,0 +1,25 @@
+node_modules/
+.env
+*.env
+!.env.example
+.wrangler/
+*.log
+
+# Raw IRS downloads and the warehouse built from them, about 2 GB. Regenerate with
+# `npm run data`, which is one command and needs no credentials.
+data/raw/
+data/*.duckdb
+data/*.duckdb.wal
+
+# Generated site shards, about 290 MB. Also `npm run data`. meta.json is committed
+# because it holds the finding, so a clean clone still renders the tables.
+public/data/o/
+public/data/i/
+public/data/g/
+
+# Private to the entry, never published
+/submit/
+DEMO-*.mp4
+upload-*/
+shots/
+__pycache__/
