@@ -33,6 +33,25 @@ const titleish = (s) =>
     .replace(/\b(Of|And|The|For|In|On|To|A|An)\b/g, (m) => m.toLowerCase())
     .replace(/\b(Usa|Us|Inc|Llc|Ii|Iii|Iv|Nyc|Ymca|Ywca|Pta)\b/gi, (m) => m.toUpperCase());
 
+// A gift measured against a $260m budget is a rounding error. Printing "0.00 days"
+// reads as a broken field rather than as the point. Say it in a unit that survives.
+function runwayWords(days) {
+  if (!(days > 0)) return "no measurable time";
+  if (days >= 2) return `${fmtNum(days, days < 10 ? 1 : 0)} days`;
+  if (days >= 1) return "about a day";
+  const hours = days * 24;
+  if (hours >= 1) return `about ${fmtNum(hours, hours < 10 ? 1 : 0)} hours`;
+  const mins = hours * 60;
+  if (mins >= 1) return `about ${fmtNum(mins, 0)} minutes`;
+  return "under a minute";
+}
+function shareWords(pct) {
+  if (!(pct > 0)) return "nothing measurable";
+  if (pct >= 1) return `${fmtNum(pct, 1)}%`;
+  if (pct >= 0.01) return `${fmtNum(pct, 2)}%`;
+  return `less than a hundredth of one percent`;
+}
+
 // history row layout, kept in one place so the shape is documented once
 const H = { FY: 0, FORM: 1, REV: 2, CONTRIB: 3, EXP: 4, LIQUID: 5, RUNWAY: 6, COST: 7 };
 
@@ -240,10 +259,9 @@ async function showOrg(ein, push = true) {
     <div class="subhead">What your gift does</div>
     <div class="pledge" id="giftbox">
       ${daysPerYear === null ? `<p class="empty">No spending figure on the latest filing, so there is nothing honest to divide.</p>` : `
-      <p>$${fmtNum(gift, 0)} a year is
-        <strong>${fmtNum(daysPerYear, daysPerYear < 1 ? 2 : 1)} days</strong>
-        of runway here, and
-        <strong>${fmtNum((gift / l[H.EXP]) * 100, 2)}%</strong>
+      <p>$${fmtNum(gift, 0)} a year buys
+        <strong>${esc(runwayWords(daysPerYear))}</strong> of runway here. That is
+        <strong>${esc(shareWords((gift / l[H.EXP]) * 100))}</strong>
         of everything this organisation spends in a year.</p>
       <p class="empty">Change the amount in the box above and this updates. The arithmetic is
         365 times your yearly gift, divided by their annual spending.</p>`}
@@ -536,8 +554,8 @@ function renderFinding() {
   $("#findingtables").innerHTML =
     tableFrom(
       "Still filing five years later, by months of runway at the start",
-      `Runway is the signal. Thin runway is the worst outcome in <b>all ten</b> spending deciles,
-       and the gap runs from ${fmtNum(dr[0].mid - dr[0].thin, 1)} points in the smallest decile to
+      `Runway is the signal. Thin runway is the worst outcome in <b>all ten</b> spending deciles.
+       The gap runs from ${fmtNum(dr[0].mid - dr[0].thin, 1)} points in the smallest decile to
        ${fmtNum(dr[9].mid - dr[9].thin, 1)} points in the largest. No charity rating site shows you
        this number.`,
       ["spending decile", "median spend", "under 3 months", "3 to 12 months", "over 12 months"],
@@ -574,16 +592,16 @@ async function renderHow() {
   $("#howbody").innerHTML = `
     <div class="tech">
       <h3>Snowflake <span>warehouse</span></h3>
-      <p>${fmtNum(m.filings_total, 0)} filings across ${m.fy_range[0]} to ${m.fy_range[1]} land in a
-      warehouse, then one SQL statement cuts the cohort into spending deciles and scores both
-      candidate signals inside every decile at once. The survival tables above are that query's
-      output.</p>
-      <p>Cortex runs the language work next to the data: <code>AI_CLASSIFY</code> puts a donor-facing
-      cause on organisations the IRS only gave a letter code. <code>AI_AGG</code> writes one
-      sentence about a filer from all of its returns at once. No rows leave the warehouse to do it.</p>
-      <p>Only aggregates ship. Marketplace terms do not allow redistributing a dataset, so the
-      per-organisation figures on this site come from our own IRS download, which is public domain.</p>
-      ${off("snowflake", "the survival tables here are the warehouse output, exported to JSON.")}
+      <p>${fmtNum(m.filings_total, 0)} filings across ${m.fy_range[0]} to ${m.fy_range[1]} go into a
+      warehouse. One statement cuts the cohort into spending deciles then scores both candidate
+      signals inside every decile at once. The survival tables above are that statement's output.</p>
+      <p>Cortex does the language work next to the data. <code>AI_CLASSIFY</code> puts a donor-facing
+      cause on organisations the IRS only gave a letter code. <code>AI_AGG</code> writes one sentence
+      about a filer from all of its returns at once. No row leaves the warehouse to do either.</p>
+      <p>Only aggregates ship. Marketplace terms do not permit redistributing a dataset, so every
+      per-organisation figure this site serves comes from our own IRS download, which is public
+      domain.</p>
+      ${off("snowflake", "no Snowflake credential is bound here, so the tables you are reading were produced by the same SQL run locally in DuckDB. The warehouse path is data/snowflake.sql.")}
     </div>
     <div class="tech">
       <h3>Google AI <span>Gemini</span></h3>
@@ -597,10 +615,11 @@ async function renderHow() {
     </div>
     <div class="tech">
       <h3>ElevenLabs <span>voice</span></h3>
-      <p>Every brief can be spoken. That is not a novelty: a third of the reason people cannot use a
-      giving tool is that it is a wall of financial text. The tour and the finding are pre-rendered at
-      build time so a visitor costs zero credits. Live briefs stream on demand.</p>
-      ${off("elevenlabs", "the Listen button reports that plainly instead of failing silently.")}
+      <p>Every brief can be spoken, because the reason a lot of people cannot use a giving tool is
+      that it is a wall of financial text. Free-tier credits are ten minutes of audio a month, so the
+      fixed narration is pre-rendered once at build time and a visitor costs nothing. Only a brief
+      about a specific filer is synthesised live.</p>
+      ${off("elevenlabs", "no ElevenLabs key is bound here, so the Listen button says so instead of failing silently.")}
     </div>
     <div class="tech">
       <h3>Solana <span>devnet</span></h3>

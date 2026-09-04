@@ -109,8 +109,8 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 3rem) 5rem
 }
 
 h1 {
-  font: 400 clamp(2.1rem, 6.2vw, 4rem)/1.08 var(--serif);
-  letter-spacing: -.02em; margin: 0 0 1.4rem; max-width: 22ch;
+  font: 400 clamp(2rem, 5.4vw, 3.5rem)/1.1 var(--serif);
+  letter-spacing: -.02em; margin: 0 0 1.4rem; max-width: 30ch; text-wrap: balance;
 }
 h1 em { font-style: italic; color: var(--accent); }
 
