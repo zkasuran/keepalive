@@ -164,8 +164,8 @@ response carries `x-keepalive-audio: fresh` the first time and `cached` after.
 The tour is in English, Hindi, Tamil and Spanish. Gemini does the translation with an
 instruction to keep every figure exactly as stated. ElevenLabs speaks it. The English stays
 the source of truth. That is the one part of this build I would call generous rather
-than clever. A US tax filing is hard to read in your first language, and the people most
-likely to be deciding about a small charity back home are not all reading English.
+than clever. A US tax filing is hard to read in your first language. The people most likely
+to be deciding about a small charity back home are not all reading English.
 
 Two things that will bite anyone doing this on a free key. A scoped key answers
 `401 missing_permissions` on `GET /v2/voices`, so a voice id has to be configured rather
