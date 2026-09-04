@@ -18,22 +18,31 @@ Two candidate signals, measured on the same 328,186 organisations that filed a l
 Form 990 for fiscal 2018 or 2019, scored on whether the same EIN appears on any filing for
 fiscal 2022 or later. 8.88% do not.
 
-**Months of runway predicts survival.** Under three months of runway is the worst outcome
-in all ten spending deciles.
+**Months of runway predicts survival.** Under three months is the worst of the three bands
+in all ten spending deciles, with no exception.
 
-| | under 3 months | 3 to 12 months | over 12 months |
+| pooled, deciles weighted equally | under 3 months | 3 to 12 months | over 12 months |
 | --- | --- | --- | --- |
-| pooled, deciles weighted equally | **87.34%** | 93.09% | 94.53% |
+| still filing | **86.79%** | 92.61% | 93.56% |
 
-**Cents spent to raise a dollar points the wrong way.** The organisations that spent under
-five cents to raise a dollar had the *lowest* survival in every one of the ten deciles.
+The gap is widest where the money is smallest: 10.3 points in the smallest decile, 1.6 in
+the largest. Past three months the gain flattens. In the top three deciles a very large
+reserve is very slightly worse than a middling one, so this is a floor effect rather than a
+straight line.
 
-| | under 5 cents | 5 to 15 cents | over 15 cents |
+**Cents spent to raise a dollar points the wrong way.** The thriftiest fundraisers, under
+five cents to raise a dollar, had lower survival than the 5 to 15 cent band in all ten
+deciles. The 5 to 15 cent band was the best of the three in all ten.
+
+| pooled, deciles weighted equally | under 5 cents | 5 to 15 cents | over 15 cents |
 | --- | --- | --- | --- |
-| pooled, deciles weighted equally | **91.21%** | 94.89% | 93.69% |
+| still filing | **91.16%** | 94.86% | 93.65% |
 
-Spending more on fundraising went with surviving more, not less. Only one of these two
-numbers is on the charity rating sites. It is the one that is backwards.
+Spending more on fundraising went with surviving more, not less. In nine of the ten deciles
+the under-five-cents band is the worst of the three outright. In the tenth, the largest
+filers, it edges past the over-fifteen-cents band by half a point while still trailing the
+middle band by 1.7. Only one of these two numbers is on the charity rating sites. It is the
+one that is backwards.
 
 Every comparison is inside a spending decile, so neither result is a story about big
 charities. Fiscal 2022 is the cut because it is the last year covered by two processing

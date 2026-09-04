@@ -2,7 +2,7 @@
 --
 -- This is the warehouse path. It is the same analysis data/analyse.py runs locally in
 -- DuckDB, expressed once in Snowflake SQL, plus the two things only a warehouse can do:
--- score every candidate signal inside every size decile in one statement, and run a
+-- score every candidate signal inside every size decile in one statement, then run a
 -- language model next to the data with Cortex instead of pulling rows out to an app.
 --
 -- Run it with the SQL REST API, which has never accepted a password, so authenticate with
@@ -25,8 +25,8 @@ CREATE FILE FORMAT IF NOT EXISTS CSV_HEADER
 CREATE STAGE IF NOT EXISTS RAW FILE_FORMAT = CSV_HEADER;
 -- PUT file://data/raw/*eoextract*.csv @RAW AUTO_COMPRESS=TRUE;   (snowsql or the driver)
 
--- One filing per organisation per fiscal year. A tax period is YYYYMM, and the same period
--- can appear in more than one processing year when a return is amended, so the newest
+-- One filing per organisation per fiscal year. A tax period is YYYYMM. The same period can
+-- appear in more than one processing year when a return is amended, so the newest
 -- processing year wins.
 CREATE OR REPLACE TABLE FILINGS AS
 SELECT * EXCLUDE (rn) FROM (
@@ -47,7 +47,7 @@ SELECT * EXCLUDE (rn) FROM (
 ) WHERE rn = 1;
 
 -- The cohort: every long-form filer with a fiscal 2018 or 2019 return, its runway at the
--- start, what it spent to raise a dollar, and whether the same EIN files again for fiscal
+-- start, what it spent to raise a dollar, then whether the same EIN files again for fiscal
 -- 2022 or later. Fiscal 2022 is the cut because it is the last year covered by two
 -- processing years of the extract, so a late filer is not scored as a closure.
 CREATE OR REPLACE TABLE COHORT AS

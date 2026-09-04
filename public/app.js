@@ -549,26 +549,35 @@ function renderFinding() {
     `decile ${r.size_decile}`, fmtMoney(r.median_spend), `${fmtNum(r.under5c, 1)}%`,
     `${fmtNum(r.c5to15, 1)}%`, `${fmtNum(r.over15c, 1)}%`,
   ]);
-  const worstIsFirst = (row, i) => (i === 2 ? "worst" : i === 3 ? "best" : "");
+  // Colour the cell that carries the claim. Never guess which one that is: mark the
+  // lowest and the highest of the three band columns as the table actually reports them.
+  const bandCells = (row) => {
+    const vals = [2, 3, 4].map((i) => parseFloat(row[i]));
+    const lo = Math.min(...vals), hi = Math.max(...vals);
+    return (r, i) => (i < 2 ? "" : parseFloat(r[i]) === lo ? "worst" : parseFloat(r[i]) === hi ? "best" : "");
+  };
+  const mark = (r, i) => bandCells(r)(r, i);
 
   $("#findingtables").innerHTML =
     tableFrom(
       "Still filing five years later, by months of runway at the start",
-      `Runway is the signal. Thin runway is the worst outcome in <b>all ten</b> spending deciles.
-       The gap runs from ${fmtNum(dr[0].mid - dr[0].thin, 1)} points in the smallest decile to
-       ${fmtNum(dr[9].mid - dr[9].thin, 1)} points in the largest. No charity rating site shows you
-       this number.`,
+      `Runway is the signal. Thin runway is the worst of the three bands in <b>all ten</b> spending
+       deciles. The gap runs from ${fmtNum(dr[0].mid - dr[0].thin, 1)} points in the smallest decile
+       to ${fmtNum(dr[9].mid - dr[9].thin, 1)} points in the largest, so it matters most exactly
+       where the money is smallest. No charity rating site shows you this number.`,
       ["spending decile", "median spend", "under 3 months", "3 to 12 months", "over 12 months"],
-      drRows, worstIsFirst
+      drRows, mark
     ) +
     tableFrom(
       "Still filing five years later, by cents spent to raise a dollar",
-      `And here is the number you <b>are</b> shown, pointing the wrong way. The organisations that
-       spent under five cents to raise a dollar had the <b>lowest</b> survival in every one of the
-       ten deciles. Spending more on fundraising went with surviving more, not less. That is the
+      `And here is the number you <b>are</b> shown, pointing the wrong way. The thriftiest
+       fundraisers, under five cents to raise a dollar, did worse than the 5 to 15 cent band in
+       <b>all ten</b> deciles. Spending more on fundraising went with surviving more. In nine of the
+       ten deciles the thriftiest band is the worst of the three outright; among the very largest
+       filers it edges past the over-fifteen-cents band while still trailing the middle. That is the
        starvation cycle showing up in tax returns.`,
       ["spending decile", "median spend", "under 5 cents", "5 to 15 cents", "over 15 cents"],
-      dfRows, worstIsFirst
+      dfRows, mark
     ) +
     `<figure><figcaption>
       Cohort: <b>${fmtNum(c.orgs, 0)}</b> organisations that filed a long-form Form 990 for fiscal
