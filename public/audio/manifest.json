@@ -1,0 +1,50 @@
+{
+ "tour.en.mp3": {
+  "id": "tour",
+  "lang": "en",
+  "language": "English",
+  "digest": "298a0195459b3521",
+  "text": "Keepalive reads the tax returns that every American charity has to file, and computes one number that no charity rating site will show you. Months of runway. The cash an organisation holds, divided by one month of its spending. Across one and a half million long form filings, the middle of the pack holds five and a half months. A third hold under three months. One in seven hold under a month. Type in a charity you care about, and Keepalive will tell you how many months it has, and what your own gift does to that number.",
+  "bytes": 252073
+ },
+ "tour.hi.mp3": {
+  "id": "tour",
+  "lang": "hi",
+  "language": "Hindi",
+  "digest": "61bbfeec36fc11bb",
+  "text": "कीपअलाइव उन टैक्स रिटर्न को पढ़ता है जो हर अमेरिकी चैरिटी को दाखिल करना पड़ता है, और एक ऐसी संख्या की गणना करता है जो कोई भी चैरिटी रेटिंग साइट आपको नहीं दिखाएगी। महीनों का रनवे। किसी संगठन के पास मौजूद नकदी, जिसे उसके एक महीने के खर्च से विभाजित किया जाता है। डेढ़ मिलियन लॉन्ग फॉर्म फाइलिंग्स में से, बीच की श्रेणी के पास साढ़े पांच महीने होते हैं। एक तिहाई के पास तीन महीने से कम होते हैं। सात में से एक के पास एक महीने से कम होता है। उस चैरिटी का नाम टाइप करें जिसकी आप परवाह करते हैं, और कीपअलाइव आपको बताएगा कि उसके पास कितने महीने हैं, और आपके खुद के उपहार से उस संख्या पर क्या असर पड़ता है।",
+  "bytes": 318110
+ },
+ "tour.ta.mp3": {
+  "id": "tour",
+  "lang": "ta",
+  "language": "Tamil",
+  "digest": "3a5283c7f45d22f8",
+  "text": "ஒவ்வொரு அமெரிக்க தொண்டு நிறுவனமும் தாக்கல் செய்ய வேண்டிய வரி கணக்குகளை கீப்அலைவ் படித்து, எந்தவொரு தொண்டு நிறுவன மதிப்பீட்டு இணையதளமும் உங்களுக்குக் காட்டாத ஒரு எண்ணைக் கணக்கிடுகிறது. ரன்வே மாதங்கள். ஒரு நிறுவனம் வைத்திருக்கும் ரொக்கப் பணம், அதன் ஒரு மாத செலவினத்தால் வகுக்கப்படுகிறது. ஒன்றரை மில்லியன் விரிவான படிவத் தாக்கல்களில், நடுத்தர வரிசையில் உள்ளவை ஐந்தரை மாதங்கள் கையிருப்பு வைத்துள்ளன. மூன்றில் ஒரு பங்கு மூன்று மாதங்களுக்கும் குறைவாகவே வைத்துள்ளன. ஏழில் ஒன்று ஒரு மாதத்திற்கும் குறைவாகவே வைத்துள்ளன. நீங்கள் விரும்பும் ஒரு தொண்டு நிறுவனத்தின் பெயரை உள்ளிடுங்கள், அது எத்தனை மாதங்கள் கையிருப்பு வைத்துள்ளது என்பதையும், உங்களுடைய சொந்த நன்கொடை அந்த எண்ணில் என்ன மாற்றத்தை ஏற்படுத்துகிறது என்பதையும் கீப்அலைவ் உங்களுக்குச் சொல்லும்.",
+  "bytes": 358235
+ },
+ "tour.es.mp3": {
+  "id": "tour",
+  "lang": "es",
+  "language": "Spanish (Latin American)",
+  "digest": "739e979661e907b0",
+  "text": "Keepalive lee las declaraciones de impuestos que cada organización benéfica estadounidense tiene que presentar, y calcula un número que ningún sitio de calificación de organizaciones benéficas te mostrará. Meses de reserva. El efectivo que tiene una organización, dividido por un mes de sus gastos. En un millón y medio de declaraciones de formulario largo, la mitad del grupo tiene cinco meses y medio. Un tercio tiene menos de tres meses. Uno de cada siete tiene menos de un mes. Escribe una organización benéfica que te interese, y Keepalive te dirá cuántos meses tiene, y qué hace tu propia donación a ese número.",
+  "bytes": 337128
+ },
+ "finding.en.mp3": {
+  "id": "finding",
+  "lang": "en",
+  "language": "English",
+  "digest": "f5f533298ea5bbef",
+  "text": "Here is what the filings say. Take the three hundred and twenty eight thousand organisations that filed a long form return for fiscal twenty eighteen or twenty nineteen, then check which of them still file three years later. Almost nine percent do not. Thin runway is the worst outcome in all ten spending brackets. Eighty seven percent of the ones holding under three months of cash were still filing, against ninety three percent of the ones holding more. Now the number you are actually shown. The charities that spent under five cents to raise a dollar survived less often than the ones spending five to fifteen cents. That held in all ten brackets. Judge a charity by how little it spends on itself, and you reward the ones with no capacity left to raise next year's money.",
+  "bytes": 380595
+ },
+ "gift.en.mp3": {
+  "id": "gift",
+  "lang": "en",
+  "language": "English",
+  "digest": "4c9bcbc49dc25a14",
+  "text": "The same money is worth wildly different amounts depending on who receives it. Twenty five dollars a month buys about twelve hours of runway at a two hundred and sixty million dollar food bank. At a twenty three thousand dollar organisation, the same twenty five dollars a month buys nine days. Neither of those is charity. Both are arithmetic, and only one of them is on any website.",
+  "bytes": 181438
+ }
+}

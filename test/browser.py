@@ -25,6 +25,23 @@ with Chrome(headless=True) as c:
     n = c.js("document.querySelectorAll('#giftresults .card').length")
     check("gift cards present", n and n >= 10, f"{n} cards")
 
+    # pre-rendered narration: four languages, all real files, no key needed
+    clips = c.js("[...document.querySelectorAll('.lang')].map(b=>b.dataset.clip)")
+    check("four narration languages offered", clips == ["tour.en", "tour.hi", "tour.ta", "tour.es"], clips)
+    probe = c.js("""(async () => {
+      const out = [];
+      for (const n of ['tour.en','tour.hi','tour.ta','tour.es','finding.en','gift.en']) {
+        const r = await fetch('/audio/' + n + '.mp3', {method:'HEAD'});
+        out.push([n, r.status, r.headers.get('content-type')]);
+      }
+      return out; })()""", await_promise=True)
+    check("every pre-rendered clip serves as audio",
+          bool(probe) and all(p[1] == 200 and 'audio' in (p[2] or '') for p in probe), probe)
+    c.js('[...document.querySelectorAll(".lang")].find(b => b.dataset.clip === "tour.ta").click()')
+    time.sleep(1)
+    src = c.js("document.querySelector('#tourplayer').getAttribute('src')")
+    check("language switch changes the clip", src and src.endswith("tour.ta.mp3"), src)
+
     # search
     c.js("""(() => { const i = document.querySelector('#q');
         i.value = 'chicago food depository';
@@ -66,6 +83,18 @@ with Chrome(headless=True) as c:
     check("receipt published to devnet", "sha256" in out and "not published" not in out, out[:200])
     href = c.js("document.querySelector('#attestout a')?.href || ''")
     check("receipt links an explorer", "solana.fm" in href, href)
+
+    # ElevenLabs on the live brief
+    c.js("document.querySelector('#speak')?.click()")
+    aud = ""
+    for _ in range(50):
+        aud = c.js("document.querySelector('#audio')?.innerText || ''")
+        if c.js("Boolean(document.querySelector('#audio audio'))") or "No audio" in aud:
+            break
+        time.sleep(1.5)
+    has = c.js("Boolean(document.querySelector('#audio audio'))")
+    check("brief is spoken by ElevenLabs", bool(has), aud[:160])
+    check("audio credits ElevenLabs on the page", "ElevenLabs" in (c.text() or ""))
     c.shot(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "shots", "org.png"))
 
 print()

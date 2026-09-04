@@ -360,3 +360,23 @@ footer .fine { font-size: .82rem; }
   .card .lead { text-align: left; }
   h1 { max-width: none; }
 }
+
+/* ---------------------------------------------------------------- listen */
+
+.listen {
+  margin-top: 2.2rem; padding: 1.05rem 1.15rem;
+  background: var(--paper-2); border: 1px solid var(--line); border-radius: var(--r);
+  max-width: 46rem;
+}
+.listen.tight { margin-top: 1.6rem; }
+.listenlead { margin: 0 0 .8rem; color: var(--ink-2); font-size: .93rem; }
+.listenlead strong { color: var(--ink); }
+.langs { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: .75rem; }
+.lang {
+  font: 500 .85rem/1 var(--sans); color: var(--ink-2); background: transparent;
+  border: 1px solid var(--line-2); border-radius: 99px; padding: .42rem .8rem; cursor: pointer;
+}
+.lang[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+@media (prefers-color-scheme: dark) { .lang[aria-pressed="true"] { color: #06231f; } }
+.credit { margin: .6rem 0 0; font-size: .8rem; color: var(--ink-3); }
+.credit a { color: var(--accent); }

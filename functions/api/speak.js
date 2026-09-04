@@ -1,29 +1,29 @@
 // POST /api/speak
-// ElevenLabs reads a brief aloud. Two things matter here. The key never reaches a
-// browser. The voice id is resolved from the account rather than copied from the
-// docs, because accounts created after March 2026 do not carry the classic default
-// voices and the documented example id simply 404s.
+// ElevenLabs reads a brief aloud.
+//
+// Three things matter here. The key never reaches a browser. The voice id is configured
+// rather than discovered, because a scoped key with only text_to_speech permission answers
+// 401 missing_permissions on GET /v2/voices. The fixed fallback list below holds default
+// voices a free account can actually use, since a library voice answers 402 paid_plan_required.
+// And the answer is cached by a hash of the text, so the second visitor to read the same
+// brief costs nothing against a ten thousand credit monthly allowance.
+//
+// Everything that never changes is pre-rendered at build time into /audio by
+// tools/narrate.mjs, so a visitor who only plays the tour spends no credits at all.
 
-const MODEL = "eleven_flash_v2_5"; // 0.5 credits per character, half the cost of v2
 const MAX_CHARS = 1800;
+// Default voices, in the order we would rather have them. All verified to synthesise on a
+// free key. Library voices are deliberately absent: they answer 402 on the free plan.
+const VOICES = [
+  "JBFqnCBsd6RMkjVDRZzb", // George, warm narrator
+  "onwK4e9ZLuTAKqWW03F9", // Daniel, news read
+  "cgSgspJ2msm6clMCkdW9", // Jessica
+  "EXAVITQu4vr4xnSDxMaL", // Sarah
+];
 
-let cachedVoice = null;
-
-async function pickVoice(key, preferred) {
-  if (preferred) return preferred;
-  if (cachedVoice) return cachedVoice;
-  const r = await fetch("https://api.elevenlabs.io/v2/voices?page_size=100", {
-    headers: { "xi-api-key": key },
-  });
-  if (!r.ok) throw new Error(`could not list voices (${r.status})`);
-  const { voices = [] } = await r.json();
-  if (!voices.length) throw new Error("this account holds no voices");
-  // prefer a calm narrator if the account has one, else take the first available
-  const pick =
-    voices.find((v) => /news|narrat|calm|documentar/i.test(`${v.name} ${v.description || ""}`)) ||
-    voices[0];
-  cachedVoice = pick.voice_id;
-  return cachedVoice;
+async function hash(s) {
+  const d = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s));
+  return [...new Uint8Array(d)].map((b) => b.toString(16).padStart(2, "0")).join("").slice(0, 32);
 }
 
 export async function onRequestPost({ request, env }) {
@@ -43,32 +43,55 @@ export async function onRequestPost({ request, env }) {
   text = String(text || "").replace(/\s+/g, " ").trim().slice(0, MAX_CHARS);
   if (text.length < 20) return bad("nothing to read", 400);
 
-  try {
-    const voice = await pickVoice(env.ELEVENLABS_API_KEY, env.ELEVENLABS_VOICE_ID);
-    const r = await fetch(
-      `https://api.elevenlabs.io/v1/text-to-speech/${voice}?output_format=mp3_44100_64`,
-      {
-        method: "POST",
-        headers: { "xi-api-key": env.ELEVENLABS_API_KEY, "content-type": "application/json" },
-        body: JSON.stringify({
-          text,
-          model_id: env.ELEVENLABS_MODEL || MODEL,
-          voice_settings: { stability: 0.45, similarity_boost: 0.7, speed: 1.0 },
-        }),
-      }
-    );
-    if (!r.ok) {
-      const detail = await r.text();
-      return bad(`ElevenLabs ${r.status}: ${detail.slice(0, 180)}`, 502);
+  const model = env.ELEVENLABS_MODEL || "eleven_flash_v2_5";
+  const key = `https://keepalive.invalid/tts/${model}/${await hash(text)}.mp3`;
+  const cache = caches.default;
+  const hit = await cache.match(key);
+  if (hit) {
+    const r = new Response(hit.body, hit);
+    r.headers.set("x-keepalive-audio", "cached");
+    return r;
+  }
+
+  const order = env.ELEVENLABS_VOICE_ID ? [env.ELEVENLABS_VOICE_ID, ...VOICES] : VOICES;
+  let last = "unknown";
+  for (const voice of order) {
+    let r;
+    try {
+      r = await fetch(
+        `https://api.elevenlabs.io/v1/text-to-speech/${voice}?output_format=mp3_44100_64`,
+        {
+          method: "POST",
+          headers: { "xi-api-key": env.ELEVENLABS_API_KEY, "content-type": "application/json" },
+          body: JSON.stringify({
+            text,
+            model_id: model,
+            voice_settings: { stability: 0.45, similarity_boost: 0.7, speed: 1.0 },
+          }),
+        }
+      );
+    } catch (e) {
+      last = String(e.message).slice(0, 160);
+      continue;
     }
-    return new Response(r.body, {
+    if (!r.ok) {
+      last = `${r.status} ${(await r.text()).slice(0, 160)}`;
+      // 401 and 402 are about this voice or this key, so trying the next voice is worth it.
+      // 429 means the monthly allowance is gone and no other voice will help.
+      if (r.status === 429) break;
+      continue;
+    }
+    const audio = new Response(r.body, {
       headers: {
         "content-type": "audio/mpeg",
-        // one month, keyed by the URL the client already hashes per brief
         "cache-control": "public, max-age=2592000",
+        "x-keepalive-audio": "fresh",
+        "x-keepalive-voice": voice,
       },
     });
-  } catch (e) {
-    return bad(String(e.message).slice(0, 200), 502);
+    const copy = audio.clone();
+    await cache.put(key, copy);
+    return audio;
   }
+  return bad(`ElevenLabs refused every voice: ${last}`, 502);
 }

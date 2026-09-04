@@ -222,12 +222,25 @@ serves comes from my own public domain IRS download instead. Only aggregates eve
 warehouse. Sources and the exact granting sentence for each are in
 [DATA-SOURCES.md](https://github.com/zkasuran/keepalive/blob/main/DATA-SOURCES.md).
 
-**ElevenLabs** reads a brief aloud, because the reason a lot of people cannot use a giving
-tool is that it is a wall of financial text. The free tier is ten minutes of audio a month,
-so fixed narration is pre-rendered once at build time and a visitor costs zero credits. Only
-a brief about a specific filer is synthesised live. The voice id is resolved with
-`GET /v2/voices` rather than copied from the docs, since accounts created after March 2026
-do not carry the documented defaults and the example id 404s.
+**ElevenLabs** reads it out, because the reason a lot of people cannot use a giving tool is
+that it is a wall of financial text. The free tier is about ten minutes of audio a month, so
+architecture had to do the work rather than budget: everything that never changes is
+pre-rendered once at build time by `tools/narrate.mjs` into static mp3. A visitor who plays
+the tour or the finding spends nothing. Only a brief about one specific filer is
+synthesised live, cached in the Worker by a SHA-256 of the text, so the
+second person to read the same organisation is free too. You can watch it happen: the
+response carries `x-keepalive-audio: fresh` the first time and `cached` after.
+
+The tour is in English, Hindi, Tamil and Spanish. Gemini does the translation with an
+instruction to keep every figure exactly as stated. ElevenLabs speaks it. The English stays
+the source of truth. That is the one part of this build I would call generous rather
+than clever. A US tax filing is hard to read in your first language, and the people most
+likely to be deciding about a small charity back home are not all reading English.
+
+Two things that will bite anyone doing this on a free key. A scoped key answers
+`401 missing_permissions` on `GET /v2/voices`, so a voice id has to be configured rather
+than discovered, with a short list of defaults to fall back through. Free accounts also get `402 paid_plan_required` on library voices, so a voice id copied out of a
+blog post is a dead end. The four in the list are ones I verified synthesise on this key.
 
 ### What is real and what is not
 
@@ -247,17 +260,22 @@ do not carry the documented defaults and the example id 404s.
 ## Prize Categories
 
 - **Best Use of Google AI.** Gemini writes every brief under a JSON schema from a packet of
-  that filer's own figures, with a rule that a missing field means not reported.
+  that filer's own figures, with a rule that a missing field means not reported. It also writes
+  the narration translations without touching a single figure.
 - **Best Use of Solana.** A devnet memo is the only store of record for what this site
   published. Remove it and no claim on the page is checkable. The transaction is hand built
   and proved byte-identical to the reference implementation.
+- **Best Use of ElevenLabs.** The tour and the finding are pre-rendered at build time in four
+  languages, so listening costs no credits and needs no key. A brief about one organisation is
+  spoken live, then cached by a hash of the text.
 
-The ElevenLabs and Snowflake paths are written and in the repository, and the live deploy
-tells you plainly that neither credential is bound to it: `/api/status` returns them false,
-the Listen button says so instead of failing silently, and the finding tables you are
-reading were produced by the same SQL run locally in DuckDB rather than in a warehouse. I
-would rather say that than claim two categories a judge cannot see working. If that changes
-before the deadline I will say so here in an edit, with the timestamp.
+The Snowflake path is written and in the repository as
+[`data/snowflake.sql`](https://github.com/zkasuran/keepalive/blob/main/data/snowflake.sql),
+and the live deploy tells you plainly that its credential is not bound: `/api/status`
+returns `snowflake: false`. The finding tables you are reading were produced by the same SQL
+run locally in DuckDB rather than in a warehouse. I would rather say that than claim a
+category a judge cannot see working. If it changes before the deadline I will say so here in
+an edit, with the timestamp.
 
 Thanks for a theme worth building for. The most useful thing I learned is that the kindest
 gift to a small charity is not the largest one, it is the predictable one. The number to ask

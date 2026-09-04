@@ -45,6 +45,23 @@
       <div class="stat"><b data-stat="under3">33%</b><span>have under 3 months</span></div>
       <div class="stat"><b data-stat="years">2017–2024</b><span>fiscal years</span></div>
     </div>
+
+    <div class="listen" id="listen">
+      <p class="listenlead">
+        <strong>Rather hear it?</strong> Thirty seconds on what this is and why the number
+        matters, spoken in four languages, because a tax filing is hard enough to read in
+        your first language.
+      </p>
+      <div class="langs" role="group" aria-label="Choose a language">
+        <button class="lang" data-clip="tour.en" aria-pressed="true">English</button>
+        <button class="lang" data-clip="tour.hi" aria-pressed="false">हिन्दी</button>
+        <button class="lang" data-clip="tour.ta" aria-pressed="false">தமிழ்</button>
+        <button class="lang" data-clip="tour.es" aria-pressed="false">Español</button>
+      </div>
+      <audio id="tourplayer" controls preload="none" src="/audio/tour.en.mp3"></audio>
+      <p class="credit">Voice by <a href="https://elevenlabs.io" rel="noopener">ElevenLabs</a>,
+        rendered once at build time so listening costs nothing and needs no key.</p>
+    </div>
   </section>
 
   <section id="find" class="panel">
@@ -102,6 +119,11 @@
       neither result is a story about big charities.
     </p>
     <div id="findingtables" class="tables"></div>
+    <div class="listen tight">
+      <p class="listenlead"><strong>The finding, read aloud.</strong> Forty seven seconds.</p>
+      <audio controls preload="none" src="/audio/finding.en.mp3"></audio>
+      <p class="credit">Voice by <a href="https://elevenlabs.io" rel="noopener">ElevenLabs</a>.</p>
+    </div>
   </section>
 
   <section id="how" class="panel how">

@@ -668,6 +668,17 @@ function fillStats() {
   set("years", `${m.fy_range[0]}–${m.fy_range[1]}`);
 }
 
+function wireLanguages() {
+  const player = $("#tourplayer");
+  if (!player) return;
+  $$(".lang").forEach((b) => (b.onclick = () => {
+    $$(".lang").forEach((o) => o.setAttribute("aria-pressed", String(o === b)));
+    const was = !player.paused;
+    player.src = `/audio/${b.dataset.clip}.mp3`;
+    if (was) player.play().catch(() => {});
+  }));
+}
+
 function wireSearch() {
   const input = $("#q"), sug = $("#suggest");
   let t = null, seq = 0;
@@ -717,6 +728,7 @@ async function boot() {
   fillSelects();
   renderFinding();
   renderHow();
+  wireLanguages();
   wireSearch();
   $("#giftform").addEventListener("submit", runGift);
   ["amount", "cadence", "cause", "state"].forEach((id) =>
