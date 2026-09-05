@@ -24,15 +24,15 @@ public domain IRS download instead.
 ## Code
 
 Nothing is bundled into the browser. `public/` ships hand-written HTML, CSS and one
-JavaScript module with no dependencies, and the Cloudflare Pages Functions under
-`functions/` call the Gemini, ElevenLabs and Solana JSON APIs over `fetch` with no SDK.
+JavaScript module with no dependencies. The Cloudflare Pages Functions under `functions/`
+call the Gemini, ElevenLabs and Solana JSON APIs over `fetch` with no SDK.
 
 One development dependency, never shipped to a visitor:
 
 - `@solana/web3.js` 1.98.4, by Solana Labs. MIT. Used only by
   [`test/attest.wire.test.mjs`](test/attest.wire.test.mjs), to prove the transaction bytes
   this project builds by hand are identical to the ones the reference implementation
-  produces, and by `tools/devnet.mjs` for a balance check.
+  produces, plus `tools/devnet.mjs` for a balance check.
 
 The SPL Memo program id `MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr` is an on-chain
 address, not code included here.
@@ -47,5 +47,5 @@ and carries no advertising.
 ## AI assistance
 
 AI assistance (Claude, Anthropic) was used in building this project. The design, the
-analysis and the verification are the author's, and every figure published came out of SQL
-in `data/` that can be rerun from the raw IRS files with `npm run data`.
+analysis and the verification are the author's. Every figure published came out of SQL in
+`data/` that can be rerun from the raw IRS files with `npm run data`.
