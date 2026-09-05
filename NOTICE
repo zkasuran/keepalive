@@ -1,0 +1,51 @@
+# NOTICE
+
+Keepalive itself is licensed under [Source-Available No-Derivatives 1.0](LICENSE),
+SPDX `LicenseRef-zkasuran-SAND-1.0`. This file records every third-party component the
+project uses and the terms it is used under.
+
+## Data
+
+The IRS Statistics of Income annual extracts of Form 990 and Form 990-EZ financial data,
+and the Exempt Organizations Business Master File. Works of the United States federal
+government, in the public domain. The exact granting sentence for each is quoted in
+[DATA-SOURCES.md](DATA-SOURCES.md).
+
+No Snowflake Marketplace data is redistributed by this repository or served by the site.
+Marketplace terms permit internal use only, so every per-organisation figure comes from the
+public domain IRS download instead.
+
+## Fonts, loaded from Google Fonts at runtime, not vendored
+
+- Inter, by Rasmus Andersson. SIL Open Font License 1.1.
+- Instrument Serif, by Rodrigo Fuenzalida and Jordan Egstad. SIL Open Font License 1.1.
+- JetBrains Mono, by JetBrains. SIL Open Font License 1.1.
+
+## Code
+
+Nothing is bundled into the browser. `public/` ships hand-written HTML, CSS and one
+JavaScript module with no dependencies, and the Cloudflare Pages Functions under
+`functions/` call the Gemini, ElevenLabs and Solana JSON APIs over `fetch` with no SDK.
+
+One development dependency, never shipped to a visitor:
+
+- `@solana/web3.js` 1.98.4, by Solana Labs. MIT. Used only by
+  [`test/attest.wire.test.mjs`](test/attest.wire.test.mjs), to prove the transaction bytes
+  this project builds by hand are identical to the ones the reference implementation
+  produces, and by `tools/devnet.mjs` for a balance check.
+
+The SPL Memo program id `MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr` is an on-chain
+address, not code included here.
+
+## Services
+
+Google Gemini API, ElevenLabs API and the public Solana devnet RPC are called at runtime
+under their own terms. ElevenLabs audio in this project was generated on a free-tier
+account, which permits non-commercial use; Keepalive takes no money, processes no donation
+and carries no advertising.
+
+## AI assistance
+
+AI assistance (Claude, Anthropic) was used in building this project. The design, the
+analysis and the verification are the author's, and every figure published came out of SQL
+in `data/` that can be rerun from the raw IRS files with `npm run data`.
